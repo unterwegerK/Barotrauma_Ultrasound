@@ -6,6 +6,8 @@ using FarseerPhysics;
 using System.Diagnostics;
 using System.Linq;
 using Barotrauma.Extensions;
+using Barotrauma.Items.Components;
+using Barotrauma.ClientSource.Items.Components;
 
 namespace Barotrauma
 {
@@ -15,7 +17,7 @@ namespace Barotrauma
         private RenderTarget2D renderTarget;
         private RenderTarget2D renderTargetWater;
         private RenderTarget2D renderTargetFinal;
-
+        private UltrasoundRenderer ultrasoundRenderer;
         private Effect damageEffect;
         private Texture2D damageStencil;
         private Texture2D distortTexture;        
@@ -61,6 +63,8 @@ namespace Barotrauma
 
             distortTexture = TextureLoader.FromFile("Content/Effects/distortnormals.png");
             PostProcessEffect.Parameters["xDistortTexture"].SetValue(distortTexture);
+
+            ultrasoundRenderer = new UltrasoundRenderer(content, graphics, GameMain.GraphicsWidth, GameMain.GraphicsHeight, Quad.Render);
         }
 
         private void CreateRenderTargets(GraphicsDevice graphics)
@@ -442,6 +446,23 @@ namespace Barotrauma
                 PostProcessEffect.CurrentTechnique.Passes[0].Apply();
             }
             Quad.Render();
+
+            if (Character.Controlled?.SelectedConstruction != null)
+            {
+                Turret turret = ComponentLocator.GetTurret(Character.Controlled?.SelectedConstruction);
+
+                if (turret != null)
+                {
+                    Vector2 probePosition = Vector2.Transform(turret.GetDrawPos(), cam.Transform);
+                    ultrasoundRenderer.Render(
+                        deltaTime,
+                        spriteBatch,
+                        probePosition,
+                        new Vector2(1.0f / renderTargetFinal.Width, 1.0f / renderTargetFinal.Height),
+                        renderTargetFinal,
+                        null);
+                }
+            }
 
             if (fadeToBlackState > 0.0f)
             {
