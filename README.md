@@ -8,6 +8,9 @@ If you have a question or an issue to report, please check our [Contribution Gui
 
 If you're interested in working on the code, either to develop mods or to contribute something to the repository, you will also find instructions in the [Contribution Guideline](https://github.com/Regalis11/Barotrauma/blob/master/CONTRIBUTING.md).
 
+## Ultrasound-Shader
+This is a proof-of-concept for a shader that shows the environment of the submarine in a ultrasound style while watched through a periscope.
+
 ## Links:
 
 **Official Website:** www.barotraumagame.com
