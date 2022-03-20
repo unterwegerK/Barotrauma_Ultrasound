@@ -11,6 +11,8 @@ If you're interested in working on the code, either to develop mods or to contri
 ## Ultrasound-Shader
 This is a proof-of-concept for a shader that shows the environment of the submarine in a ultrasound style while watched through a periscope.
 
+The implementation is based on this description: https://avangarde-software.com/ultrasound-simulation-with-shaders/
+
 ## Links:
 
 **Official Website:** www.barotraumagame.com
