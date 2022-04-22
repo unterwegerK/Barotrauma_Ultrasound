@@ -12,7 +12,7 @@ namespace Barotrauma.ClientSource.Items.Components
         /// <returns></returns>
         internal static Turret GetTurret(Item periscope)
         {
-            Connection outgoingConnection = periscope?.Connections.FirstOrDefault(c => c.Name == "position_out");
+            Connection outgoingConnection = periscope?.Connections?.FirstOrDefault(c => c.Name == "position_out");
 
             if(outgoingConnection == null)
             {
